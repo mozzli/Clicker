@@ -1,0 +1,176 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://points_text.gd" type="Script" id=1]
+[ext_resource path="res://resources/Fonts/rockford_sans/RockfordSans-Light.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://upgrade_1.gd" type="Script" id=3]
+[ext_resource path="res://upgrade_2.gd" type="Script" id=4]
+[ext_resource path="res://clicker.gd" type="Script" id=5]
+[ext_resource path="res://upgrade_3.gd" type="Script" id=6]
+[ext_resource path="res://clicker_upgrade_box.gd" type="Script" id=7]
+[ext_resource path="res://Timer.gd" type="Script" id=8]
+[ext_resource path="res://Main_scene.gd" type="Script" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 100
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 510, 56 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 122, 29 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 125, 30 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 125, 30 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 80, 72 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 117.859, 61.2191 )
+
+[node name="Main_scene" type="Node2D"]
+script = ExtResource( 9 )
+
+[node name="points_text" type="KinematicBody2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="points_text"]
+margin_left = 45.0
+margin_top = 10.0
+margin_right = 1019.0
+margin_bottom = 157.0
+theme = SubResource( 2 )
+text = "Points: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="points_text"]
+position = Vector2( 509, 83 )
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="points_text"]
+wait_time = 0.001
+
+[node name="upgrade_1" type="KinematicBody2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="upgrade_1"]
+position = Vector2( 788, 242 )
+shape = SubResource( 4 )
+
+[node name="Button" type="Button" parent="upgrade_1"]
+margin_left = 666.0
+margin_top = 213.0
+margin_right = 909.0
+margin_bottom = 272.0
+text = "Upgrade 1| Cost 10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="upgrade_2" type="KinematicBody2D" parent="."]
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="upgrade_2"]
+position = Vector2( 788, 329 )
+shape = SubResource( 8 )
+
+[node name="Button2" type="Button" parent="upgrade_2"]
+margin_left = 666.0
+margin_top = 298.0
+margin_right = 907.0
+margin_bottom = 357.0
+text = "Upgrade 2| Cost 100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="upgrade_3" type="KinematicBody2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="upgrade_3"]
+position = Vector2( 789.26, 413.415 )
+shape = SubResource( 5 )
+
+[node name="Button3" type="Button" parent="upgrade_3"]
+margin_left = 666.0
+margin_top = 384.935
+margin_right = 910.78
+margin_bottom = 443.935
+text = "Upgrade 3| Cost 1000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="clicker" type="KinematicBody2D" parent="."]
+position = Vector2( 239, 338 )
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="clicker"]
+shape = SubResource( 6 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Button" type="Button" parent="clicker"]
+margin_left = -79.0
+margin_top = -76.0
+margin_right = 85.0
+margin_bottom = 78.0
+text = "Click me!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bonus_timer" type="Timer" parent="clicker"]
+wait_time = 2.094
+autostart = true
+script = ExtResource( 8 )
+
+[node name="Bonus_end_timer" type="Timer" parent="clicker"]
+wait_time = 9.0
+one_shot = true
+
+[node name="clicker_upgrade_box" type="KinematicBody2D" parent="."]
+position = Vector2( 497.089, 331.789 )
+script = ExtResource( 7 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="clicker_upgrade_box"]
+shape = SubResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Button" type="Button" parent="clicker_upgrade_box"]
+margin_left = -115.379
+margin_top = -62.1892
+margin_right = 114.621
+margin_bottom = 61.8108
+text = "Clicker Button Upgrade! | Cost 300 "
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+[connection signal="timeout" from="points_text/Timer" to="points_text" method="_on_Timer_timeout"]
+[connection signal="pressed" from="upgrade_1/Button" to="upgrade_1" method="_on_Button_pressed"]
+[connection signal="pressed" from="upgrade_2/Button2" to="upgrade_2" method="_on_Button2_pressed"]
+[connection signal="pressed" from="upgrade_3/Button3" to="upgrade_3" method="_on_Button3_pressed"]
+[connection signal="pressed" from="clicker/Button" to="clicker" method="_on_Button_pressed"]
+[connection signal="timeout" from="clicker/Bonus_timer" to="." method="_on_Bonus_timer_timeout"]
+[connection signal="timeout" from="clicker/Bonus_timer" to="clicker" method="_on_Bonus_timer_timeout"]
+[connection signal="timeout" from="clicker/Bonus_end_timer" to="clicker" method="_on_Bonus_end_timer_timeout"]
+[connection signal="pressed" from="clicker_upgrade_box/Button" to="clicker_upgrade_box" method="_on_Button_pressed"]
