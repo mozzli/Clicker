@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://points_text.gd" type="Script" id=1]
 [ext_resource path="res://resources/Fonts/rockford_sans/RockfordSans-Light.otf" type="DynamicFontData" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://clicker_upgrade_box.gd" type="Script" id=7]
 [ext_resource path="res://Timer.gd" type="Script" id=8]
 [ext_resource path="res://Main_scene.gd" type="Script" id=9]
+[ext_resource path="res://resources/Fonts/droid-sans/DroidSans.ttf" type="DynamicFontData" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 100
@@ -17,22 +18,26 @@ font_data = ExtResource( 2 )
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 510, 56 )
+[sub_resource type="DynamicFont" id=9]
+size = 33
+font_data = ExtResource( 10 )
+
+[sub_resource type="Theme" id=10]
+default_font = SubResource( 9 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 122, 29 )
-
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 125, 30 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 125, 30 )
 
 [sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 125, 30 )
+
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 80, 72 )
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 117.859, 61.2191 )
 
 [node name="Main_scene" type="Node2D"]
@@ -52,12 +57,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="points_text"]
-position = Vector2( 509, 83 )
-shape = SubResource( 3 )
-
 [node name="Timer" type="Timer" parent="points_text"]
-wait_time = 0.001
+wait_time = 0.01
+autostart = true
+
+[node name="points_per_second_text" type="RichTextLabel" parent="points_text"]
+margin_left = 95.244
+margin_top = 157.153
+margin_right = 630.244
+margin_bottom = 227.153
+theme = SubResource( 10 )
+text = "Points per second: 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="upgrade_1" type="KinematicBody2D" parent="."]
 script = ExtResource( 3 )
@@ -85,7 +98,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="upgrade_2"]
 position = Vector2( 788, 329 )
-shape = SubResource( 8 )
+shape = SubResource( 5 )
 
 [node name="Button2" type="Button" parent="upgrade_2"]
 margin_left = 666.0
@@ -102,7 +115,7 @@ script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="upgrade_3"]
 position = Vector2( 789.26, 413.415 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="Button3" type="Button" parent="upgrade_3"]
 margin_left = 666.0
@@ -119,7 +132,7 @@ position = Vector2( 239, 338 )
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="clicker"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
@@ -149,7 +162,7 @@ position = Vector2( 497.089, 331.789 )
 script = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="clicker_upgrade_box"]
-shape = SubResource( 9 )
+shape = SubResource( 8 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -170,7 +183,7 @@ __meta__ = {
 [connection signal="pressed" from="upgrade_2/Button2" to="upgrade_2" method="_on_Button2_pressed"]
 [connection signal="pressed" from="upgrade_3/Button3" to="upgrade_3" method="_on_Button3_pressed"]
 [connection signal="pressed" from="clicker/Button" to="clicker" method="_on_Button_pressed"]
-[connection signal="timeout" from="clicker/Bonus_timer" to="." method="_on_Bonus_timer_timeout"]
 [connection signal="timeout" from="clicker/Bonus_timer" to="clicker" method="_on_Bonus_timer_timeout"]
+[connection signal="timeout" from="clicker/Bonus_timer" to="." method="_on_Bonus_timer_timeout"]
 [connection signal="timeout" from="clicker/Bonus_end_timer" to="clicker" method="_on_Bonus_end_timer_timeout"]
 [connection signal="pressed" from="clicker_upgrade_box/Button" to="clicker_upgrade_box" method="_on_Button_pressed"]

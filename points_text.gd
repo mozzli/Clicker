@@ -1,22 +1,22 @@
 extends KinematicBody2D
 
-var points = 10000000
-var timer_clicks = 0.00000000001
+var points = 1000
+var timer_clicks = 0.0000000001
 
 func _ready():
 	pass
 
 func _process(_delta):
-	get_node("RichTextLabel").text = "points: " + str(points)
+	get_node("RichTextLabel").text = "points: " + str(floor(points))
 	
 
 func update_timer(var amount):
 	timer_clicks += amount
-	$Timer.wait_time = 1/timer_clicks
-	print(timer_clicks)
-	if $Timer.paused == false:
-		$Timer.start()
 
 
 func _on_Timer_timeout():
-	points += 1
+	points += (timer_clicks)*0.01675
+
+
+func upgrade_points_per_second_text():
+	$points_per_second_text.text = "points per second: " + str(timer_clicks)

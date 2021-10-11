@@ -19,3 +19,4 @@ func _on_Button_pressed():
 		cost = int(round(((base_cost+upgrade_cost_amount)*upgrade_level)*1.1))
 		get_node("Button").text = "Upgrade 1| Cost " + str(cost)
 		points_node.update_timer(timer_points_upgrade)
+		points_node.upgrade_points_per_second_text()
